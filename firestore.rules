@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+    function isUser(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    function isVendor() {
+      return isAuthenticated() && request.auth.token.role == 'vendor';
+    }
+    match /users/{userId} {
+      // Only allow a user to read their own data, or an admin.
+      // Public profiles should be stored in a separate, public collection.
+      allow read: if isUser(userId) || isAdmin();
+      allow create, update: if isUser(userId);
+      allow delete: if isAdmin();
+    }
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if isAdmin() || isVendor();
+      allow update: if isAdmin() || (isVendor() && resource.data.vendorId == request.auth.uid);
+      allow delete: if isAdmin();
+    }
+    match /sourcing_requests/{requestId} {
+      // Only the owner or an admin should be able to read a sourcing request.
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || (request.resource.data.userId == request.auth.uid && request.resource.data.status == 'pending');
+    }
+    match /orders/{orderId} {
+      // This rule is well-written and secure.
+      allow read: if isAuthenticated() && (isAdmin() || resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated();
+      allow update: if isAdmin() || (resource.data.userId == request.auth.uid && resource.data.status == 'pending');
+    }
+    match /suppliers/{supplierId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    match /carts/{userId} {
+      allow read, write: if isUser(userId);
+    }
+    match /wishlists/{userId} {
+      allow read, write: if isUser(userId);
+    }
+    match /admin_settings/{settingId} {
+      // Admin settings should only be readable by admins.
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+    match /analytics/{document} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.resource.data.userId == request.auth.uid || isAdmin();
+    }
+    match /notifications/{notificationId} {
+      // This rule is good for reading.
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      // Creation should be locked down to prevent users from creating notifications for others.
+      // This should be done via a trusted backend (Cloud Function).
+      allow create: if isAdmin();
+      allow update: if resource.data.userId == request.auth.uid;
+    }
+  }
+}

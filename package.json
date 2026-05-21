@@ -1,0 +1,26 @@
+{
+  "name": "modern-sourcing-cug",
+  "version": "1.0.0",
+  "description": "This complete production-ready system includes:",
+  "main": "._deepseek_javascript_20260507_a557e7.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.2",
+    "@types/react": "18.3.3",
+    "typescript": "5.4.5"
+  }
+}

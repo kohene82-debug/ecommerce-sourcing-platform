@@ -1,0 +1,119 @@
+ecommerce-sourcing-platform/
+├── .env.local
+├── .gitignore
+├── firebase.json
+├── firestore.indexes.json
+├── firestore.rules
+├── storage.rules
+├── next.config.js
+├── next-env.d.ts (optional – create empty)
+├── package.json
+├── postcss.config.js
+├── tailwind.config.ts
+├── tsconfig.json
+├── public/
+│   ├── manifest.json
+│   └── icons/ (create empty folder)
+├── functions/
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── src/
+│       ├── index.ts
+│       └── ai/
+│           └── productResearch.ts
+└── src/
+    ├── app/
+    │   ├── (auth)/
+    │   │   ├── login/
+    │   │   │   └── page.tsx
+    │   │   ├── register/
+    │   │   │   └── page.tsx
+    │   │   └── layout.tsx (optional – reuse main layout)
+    │   ├── (dashboard)/
+    │   │   └── admin/
+    │   │       ├── page.tsx
+    │   │       ├── sourcing/
+    │   │       │   └── page.tsx
+    │   │       ├── products/
+    │   │       │   └── page.tsx
+    │   │       ├── orders/
+    │   │       │   └── page.tsx
+    │   │       ├── suppliers/
+    │   │       │   └── page.tsx
+    │   │       └── analytics/
+    │   │           └── page.tsx
+    │   ├── (routes)/
+    │   │   ├── page.tsx (homepage)
+    │   │   ├── search/
+    │   │   │   └── [query]/
+    │   │   │       └── page.tsx
+    │   │   ├── product/
+    │   │   │   └── [id]/
+    │   │   │       └── page.tsx
+    │   │   ├── cart/
+    │   │   │   └── page.tsx
+    │   │   ├── checkout/
+    │   │   │   └── page.tsx
+    │   │   ├── orders/
+    │   │   │   └── page.tsx
+    │   │   ├── wishlist/
+    │   │   │   └── page.tsx
+    │   │   └── profile/
+    │   │       └── page.tsx
+    │   ├── layout.tsx
+    │   ├── globals.css
+    │   ├── providers.tsx
+    │   ├── sitemap.ts
+    │   └── robots.ts
+    ├── components/
+    │   ├── common/
+    │   │   ├── Navbar.tsx
+    │   │   ├── Footer.tsx
+    │   │   ├── SearchBar.tsx
+    │   │   ├── ProductCard.tsx
+    │   │   ├── LoadingSkeleton.tsx
+    │   │   ├── Toast.tsx
+    │   │   └── ThemeToggle.tsx
+    │   ├── ai/
+    │   │   ├── AIChatbot.tsx
+    │   │   ├── ProductRecommendations.tsx
+    │   │   └── PriceComparisonTable.tsx
+    │   ├── checkout/
+    │   │   ├── StripePayment.tsx
+    │   │   └── PayPalButton.tsx
+    │   └── admin/
+    │       ├── SourcingQueue.tsx
+    │       ├── AnalyticsChart.tsx
+    │       └── SupplierVerification.tsx
+    ├── lib/
+    │   ├── firebase/
+    │   │   ├── client.ts
+    │   │   └── admin.ts (optional – server-side)
+    │   ├── ai/
+    │   │   ├── openai.ts
+    │   │   ├── deepseek.ts
+    │   │   └── researchEngine.ts
+    │   ├── payments/
+    │   │   ├── stripe.ts
+    │   │   └── paypal.ts
+    │   ├── utils/
+    │   │   ├── currency.ts
+    │   │   ├── shipping.ts
+    │   │   └── validators.ts
+    │   └── hooks/
+    │       ├── useAuth.ts
+    │       ├── useCart.ts
+    │       ├── useWishlist.ts
+    │       └── useDebounce.ts
+    ├── types/
+    │   ├── user.ts
+    │   ├── product.ts
+    │   ├── order.ts
+    │   ├── supplier.ts
+    │   └── sourcing.ts
+    ├── services/
+    │   ├── productService.ts
+    │   ├── orderService.ts
+    │   ├── sourcingService.ts
+    │   └── analyticsService.ts
+    └── middleware.ts

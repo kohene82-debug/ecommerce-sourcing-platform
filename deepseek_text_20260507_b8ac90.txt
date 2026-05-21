@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+.env.local
+.DS_Store
+*.log
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+functions/node_modules
+functions/lib
